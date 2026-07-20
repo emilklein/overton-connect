@@ -196,11 +196,10 @@
                 <div class="bg-white border border-slate-200 rounded-[32px] overflow-hidden shadow-xl p-8">
                     <div class="flex flex-col sm:flex-row items-center gap-6 mb-8 pb-6 border-b border-slate-100">
                        <div class="w-24 h-24 rounded-2xl border-4 border-white shadow-md overflow-hidden flex items-center justify-center bg-gradient-to-tr ${theme.bg}">
-    ${prof.urlProfilePicture || prof.URLProfilePicture ? 
-        `<img src="${prof.urlProfilePicture || prof.URLProfilePicture}" alt="${prof.businessName}" class="w-full h-full object-cover">` : 
-        `<span class="text-white font-bold text-3xl">${prof.businessName.substring(0,2).toUpperCase()}</span>`
-    }
-</div>
+                            ${prof.urlProfilePicture || prof.URLProfilePicture ? 
+                                `<img src="${prof.urlProfilePicture || prof.URLProfilePicture}" alt="${prof.businessName}" class="w-full h-full object-cover">` : 
+                                `<span class="text-white font-bold text-3xl">${prof.businessName.substring(0,2).toUpperCase()}</span>`
+                            }
                         </div>
                         <div class="text-center sm:text-left flex-grow">
                             <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border ${theme.badge} ${theme.text} mb-2">
@@ -287,7 +286,7 @@
         (function() {
             const script = document.createElement("script");
             script.type = "text/javascript";
-            script.src = "https://script.google.com/macros/s/AKfycbySeZzS5a4YaTx3fWNdzn0BGjoG280PmjXFi3BKbvs5DLzG6yM4RfHgiFKD2qvMThmL/exec?callback=callback&_ts=" + new Date().getTime();
+            script.src = "https://script.google.com/macros/s/AKfycbwoK24ERU51BzuW13TMVYDDA1Ui6HoYg8Eo9-KJbNJJZ7YfQhJ310AxEFHrjrDvfenB/exec?callback=callback&_ts=" + new Date().getTime();
             script.onerror = function() { renderDirectoryCards(backupData); };
             document.body.appendChild(script);
         })();
