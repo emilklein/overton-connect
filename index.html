@@ -139,55 +139,56 @@
 
     <!-- Directory Fetch Engine -->
     <script>
-        // Registramos la función explícitamente en el objeto ventana global (Window)
-        window.callback = function(data) {
+        document.addEventListener("DOMContentLoaded", function() {
+            // URL directa limpia para llamadas seguras asíncronas
+            const API_URL = "https://script.google.com/macros/s/AKfycbySeZzS5a4YaTx3fWNdzn0BGjoG280PmjXFi3BKbvs5DLzG6yM4RfHgiFKD2qvMThmL/exec"; 
+            
             const grid = document.getElementById("directory-grid");
             const loading = document.getElementById("directory-loading");
-            
-            if (loading) loading.remove();
-            
-            if (!data || data.length === 0) {
-                grid.innerHTML = "<p class='col-span-full text-center text-slate-400 text-sm py-6'>No approved professionals found yet.</p>";
-                return;
-            }
-            
-            grid.innerHTML = ""; 
-            
-            data.forEach(prof => {
-                const card = document.createElement("div");
-                card.className = "bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition";
-                card.innerHTML = `
-                    <div>
-                        <div class="flex items-start justify-between mb-3">
-                            <h3 class="text-lg font-bold text-slate-950">${prof.businessName}</h3>
-                            <span class="text-xs bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded-md border border-slate-200">${prof.services}</span>
-                        </div>
-                        <p class="text-sm text-slate-600 line-clamp-3 mb-4">${prof.description || 'No description provided.'}</p>
-                    </div>
-                    <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between">
-                        <div class="text-xs text-slate-400">👤 ${prof.contactName}</div>
-                        <button onclick="alert('Reviews system coming very soon for ${prof.businessName}!')" class="text-xs font-semibold text-blue-600 hover:text-blue-700 transition">
-                            View Profile & Reviews 🌟
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        };
 
-        // Inyectamos el puente apuntando directamente al script global fijado
-        (function() {
-            const script = document.createElement("script");
-            script.type = "text/javascript";
-            script.src = "https://script.google.com/macros/s/AKfycbySeZzS5a4YaTx3fWNdzn0BGjoG280PmjXFi3BKbvs5DLzG6yM4RfHgiFKD2qvMThmL/exec?callback=callback&_ts=" + new Date().getTime();
-            
-            script.onerror = function() {
-                const loading = document.getElementById("directory-loading");
-                if (loading) loading.innerHTML = "<p class='text-red-500 text-sm py-4'>Failed to connect to directory pipeline.</p>";
-            };
-            
-            document.head.appendChild(script);
-        })();
+            // Forzamos al servidor de Google a darnos datos frescos sin usar la caché local
+            const finalUrl = API_URL + "?_ts=" + new Date().getTime();
+
+            fetch(finalUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error("Network issues");
+                    return response.json();
+                })
+                .then(data => {
+                    if (loading) loading.remove();
+                    
+                    if(!data || data.length === 0) {
+                        grid.innerHTML = "<p class='col-span-full text-center text-slate-400 text-sm py-6'>No approved professionals found yet.</p>";
+                        return;
+                    }
+                    
+                    grid.innerHTML = "";
+                    data.forEach(prof => {
+                        const card = document.createElement("div");
+                        card.className = "bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition";
+                        card.innerHTML = `
+                            <div>
+                                <div class="flex items-start justify-between mb-3">
+                                    <h3 class="text-lg font-bold text-slate-950">${prof.businessName}</h3>
+                                    <span class="text-xs bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded-md border border-slate-200">${prof.services}</span>
+                                </div>
+                                <p class="text-sm text-slate-600 line-clamp-3 mb-4">${prof.description || 'No description provided.'}</p>
+                            </div>
+                            <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between">
+                                <div class="text-xs text-slate-400">👤 ${prof.contactName}</div>
+                                <button onclick="alert('Reviews system coming very soon for ${prof.businessName}!')" class="text-xs font-semibold text-blue-600 hover:text-blue-700 transition">
+                                    View Profile & Reviews 🌟
+                                </button>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                })
+                .catch(err => {
+                    console.error("Error loading network:", err);
+                    if (loading) loading.innerHTML = "<p class='text-red-500 text-sm py-4'>Failed to connect to directory pipeline.</p>";
+                });
+        });
     </script>
 </body>
 </html>
