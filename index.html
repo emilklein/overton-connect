@@ -12,7 +12,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col justify-between">
+<body class="bg-[#FAFAFF] text-slate-900 min-h-screen flex flex-col justify-between">
 
     <!-- Header / Navigation -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
@@ -83,15 +83,15 @@
 
             <!-- AUTOMATED DIRECTORY SECTION -->
             <div class="border-t border-slate-200 pt-16 mb-20">
-                <div class="max-w-4xl mx-auto">
-                    <div class="text-center sm:text-left mb-10">
+                <div class="max-w-6xl mx-auto flex flex-col items-center">
+                    <div class="text-center mb-10">
                         <h2 class="text-3xl font-bold tracking-tight text-slate-900 mb-2">Verified Local Professionals</h2>
                         <p class="text-slate-500">Connecting you with approved independent trades and services in Overton.</p>
                     </div>
                     
-                    <!-- Dynamic Grid Container -->
-                    <div id="directory-grid" class="grid sm:grid-cols-2 gap-8">
-                        <!-- Las tarjetas premium se renderizan aquí -->
+                    <!-- Dynamic Grid Container - Ajustado a una columna centrada con max-w-lg (500px) -->
+                    <div id="directory-grid" class="w-full max-w-[500px] gap-8">
+                        <!-- Las tarjetas premium ultra pulidas se renderizan aquí -->
                     </div>
                 </div>
             </div>
@@ -137,7 +137,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Datos del directorio local
             const localData = [{
                 "id": 1,
                 "businessName": "Chico Language Solutions",
@@ -145,17 +144,12 @@
                 "email": "echicomarro@gmail.com",
                 "phone": "07444169701",
                 "address": "RG253NS",
-                "services": "Tutor", // Categoría mapeada para activar el tema morado
-                "description": "Helping adults, professionals, and students learn Spanish and English with confidence. Made miracles making people speak languages."
+                "services": "Language Tutor", 
+                "description": "Helping adults, professionals and students learn Spanish and English with confidence. Made miracles making people speak languages."
             }];
 
-            // Mapeo dinámico de estilos premium según la categoría del profesional
             const categoryThemes = {
-                "tutor": { bg: "from-purple-600 via-indigo-600 to-violet-500", text: "text-purple-700", badge: "bg-purple-50 border-purple-100", dot: "bg-purple-500" },
-                "plumber": { bg: "from-blue-600 via-sky-600 to-cyan-500", text: "text-blue-700", badge: "bg-blue-50 border-blue-100", dot: "bg-blue-500" },
-                "electrician": { bg: "from-amber-500 via-yellow-500 to-orange-400", text: "text-amber-800", badge: "bg-amber-50 border-amber-100", dot: "bg-amber-500" },
-                "gardener": { bg: "from-emerald-600 via-green-600 to-teal-500", text: "text-emerald-700", badge: "bg-emerald-50 border-emerald-100", dot: "bg-emerald-500" },
-                "pet care": { bg: "from-orange-500 via-dark-orange to-amber-500", text: "text-orange-700", badge: "bg-orange-50 border-orange-100", dot: "bg-orange-500" },
+                "language tutor": { bg: "from-indigo-600 via-purple-600 to-cyan-500", text: "text-indigo-700", badge: "bg-indigo-50/60 border-indigo-100", dot: "bg-indigo-500" },
                 "default": { bg: "from-slate-700 via-slate-800 to-slate-900", text: "text-slate-700", badge: "bg-slate-50 border-slate-100", dot: "bg-slate-500" }
             };
 
@@ -166,7 +160,6 @@
                 const catKey = (prof.services || "").toLowerCase().trim();
                 const theme = categoryThemes[catKey] || categoryThemes["default"];
                 
-                // Extraemos las iniciales del nombre de contacto para el avatar elegante
                 const initials = (prof.contactName || "EP")
                     .split(" ")
                     .map(n => n[0])
@@ -175,71 +168,80 @@
                     .toUpperCase();
 
                 const card = document.createElement("div");
-                // Contenedor principal con microanimaciones suaves (scale-102, shadow, rotación del avatar incorporada)
-                card.className = "bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 hover:scale-[1.01] transition-all duration-300 group flex flex-col justify-between";
+                // Ancho fijo a 500px, microanimaciones de escala 1.02 y sombra pesada en hover
+                card.className = "bg-white border border-slate-150 rounded-[24px] overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 group flex flex-col justify-between w-full mx-auto mb-6";
                 
                 card.innerHTML = `
                     <div>
-                        <!-- Encabezado con degradado suave inteligente según categoría -->
-                        <div class="bg-gradient-to-r ${theme.bg} px-6 py-3.5 flex items-center justify-between text-white text-xs font-bold tracking-wide">
-                            <span class="flex items-center gap-1.5 uppercase">
+                        <!-- Encabezado con degradado premium Indigo -> Purple -> Cyan -->
+                        <div class="bg-gradient-to-r ${theme.bg} px-6 py-4 flex items-center justify-between text-white text-[11px] font-bold tracking-wider uppercase">
+                            <span class="flex items-center gap-1.5">
                                 <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                                Verified Professional
+                                ✔ Verified Local Professional
                             </span>
-                            <span class="bg-white/20 backdrop-blur-md text-white px-2.5 py-0.5 rounded-full border border-white/10">⭐ New Member</span>
+                            <span class="bg-white/20 backdrop-blur-md text-white px-2.5 py-0.5 rounded-full border border-white/10 normal-case">⭐ New Member</span>
                         </div>
 
                         <!-- Cuerpo de la Tarjeta -->
                         <div class="p-6">
-                            <!-- Fila de Perfil Principal -->
-                            <div class="flex items-center gap-4 mb-5">
-                                <!-- Avatar Moderno Circular con Iniciales que gira levemente en hover -->
-                                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr ${theme.bg} text-white font-bold text-lg flex items-center justify-center shadow-sm group-hover:rotate-3 transition-transform duration-300 shrink-0">
+                            <!-- Fila de Perfil Principal con Avatar de más impacto -->
+                            <div class="flex items-center gap-4 mb-6">
+                                <!-- Avatar con degradado radial, sombra marcada y borde blanco -->
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-tr ${theme.bg} text-white font-bold text-xl flex items-center justify-center border-4 border-white shadow-md group-hover:rotate-3 transition-transform duration-300 shrink-0">
                                     ${initials}
                                 </div>
                                 <div>
-                                    <h3 class="text-xl font-bold text-slate-900 tracking-tight leading-snug">${prof.businessName}</h3>
-                                    <div class="flex items-center gap-1.5 text-xs text-slate-400 mt-0.5 font-medium">
-                                        <span>📍 Overton, Hampshire</span>
+                                    <h3 class="text-2xl font-bold text-slate-900 tracking-tight leading-snug">${prof.businessName}</h3>
+                                    <!-- 3 Micro-checks de confianza añadidos debajo del nombre -->
+                                    <div class="mt-1.5 space-y-0.5 text-xs font-medium text-slate-500">
+                                        <div class="flex items-center gap-1.5 text-emerald-600">
+                                            <span>✔ Identity Verified</span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5">
+                                            <span>✔ Responds within 2 hours</span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5">
+                                            <span>✔ Serving Overton since 2026</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Sistema de Estrellas Inspirador -->
-                            <div class="bg-slate-50 border border-slate-100 rounded-2xl p-3 mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                                <div class="flex items-center gap-1">
-                                    <span class="text-amber-400 text-sm">⭐⭐⭐⭐⭐</span>
-                                    <span class="text-xs font-bold text-slate-700 ml-1">0.0</span>
+                            <!-- Sistema de Estrellas estilo Airbnb (Crecido y prioritario) -->
+                            <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 mb-6 flex items-center justify-between">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-amber-400 text-lg tracking-tighter">★★★★★</span>
+                                    <span class="text-sm font-bold text-slate-800">0.0</span>
                                 </div>
                                 <span class="text-xs text-slate-500 font-medium">Be the first neighbor to recommend them!</span>
                             </div>
 
-                            <!-- Descripción -->
-                            <p class="text-sm text-slate-600 leading-relaxed font-normal italic mb-2">
-                                "${prof.description}"
+                            <!-- Descripción sin comillas y limpia -->
+                            <p class="text-sm text-slate-600 leading-relaxed font-normal mb-2">
+                                ${prof.description}
                             </p>
                         </div>
                     </div>
 
-                    <!-- Pie de Tarjeta con Etiquetas e Interacción -->
+                    <!-- Pie de Tarjeta con Insignias Elegantes -->
                     <div class="px-6 pb-6 mt-auto">
-                        <div class="flex flex-wrap gap-2 items-center justify-between border-t border-slate-100 pt-4 mb-5">
-                            <span class="text-xs font-semibold px-3 py-1 rounded-full border ${theme.badge} ${theme.text}">
-                                🏷️ ${prof.services}
+                        <div class="flex flex-wrap gap-2 items-center justify-between border-t border-slate-100 pt-4 mb-6">
+                            <span class="text-xs font-bold px-3 py-1 rounded-full border ${theme.badge} ${theme.text}">
+                                🎓 ${prof.services}
                             </span>
-                            <span class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500">
-                                <span class="w-1.5 h-1.5 rounded-full ${theme.dot}"></span> Identity Verified
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-0.5 rounded-full">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live Local
                             </span>
                         </div>
 
-                        <!-- Botón Principal Robusto Estilo App -->
+                        <!-- Botón Principal en Indigo (#4F46E5) -->
                         <div class="space-y-3">
                             <button onclick="alert('Profile view coming very soon for ${prof.businessName}!')" 
-                                    class="w-full bg-slate-900 text-white font-bold text-sm py-3.5 px-4 rounded-xl hover:bg-blue-600 active:bg-blue-700 shadow-sm transition-all duration-200 text-center tracking-wide block">
+                                    class="w-full bg-[#4F46E5] text-white font-bold text-sm py-4 px-4 rounded-xl hover:bg-[#4338CA] active:bg-[#3730A3] shadow-md hover:shadow-lg transition-all duration-200 text-center tracking-wide block">
                                 View Full Profile
                             </button>
                             <button onclick="alert('Reviews module opening soon!')" 
-                                    class="w-full text-center text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors block py-1">
+                                    class="w-full text-center text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors block py-1">
                                 Leave the first review &rarr;
                             </button>
                         </div>
