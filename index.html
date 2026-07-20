@@ -72,7 +72,7 @@
                         &rarr;
                     </button>
 
-                    <!-- Indicadores -->
+                    <!-- Indicadores (Dots) -->
                     <div id="carousel-dots" class="absolute bottom-4 inset-x-0 flex justify-center gap-2 z-10">
                         <button onclick="showSlide(0)" class="w-3 h-3 rounded-full border border-white/50 bg-white scale-125 transition-all"></button>
                         <button onclick="showSlide(1)" class="w-3 h-3 rounded-full border border-white/50 bg-white/40 transition-all"></button>
@@ -135,7 +135,7 @@
                                 <span class="text-2xl text-blue-600">👤</span>
                             </div>
                             <h2 class="text-2xl font-bold text-slate-900 mb-3">Need a Local Service?</h2>
-                            <p class="text-slate-600 leading-relaxed mb-6">
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
                                 Looking for a trusted plumber, electrician, gardener, or need assistance with local errands or home maintenance? Post your request here to find a reliable professional living and working within our community.
                             </p>
                         </div>
@@ -153,7 +153,7 @@
                                 <span class="text-2xl text-emerald-600">💼</span>
                             </div>
                             <h2 class="text-2xl font-bold text-slate-900 mb-3">Offer Your Services</h2>
-                            <p class="text-slate-600 leading-relaxed mb-6">
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
                                 Are you an independent trader, local delivery driver, hospitality venue, or business owner based in or around Overton? Join our growing digital business network today to receive direct service inquiries and match with local clients.
                             </p>
                         </div>
@@ -185,7 +185,7 @@
         </main>
     </div>
 
-    <!-- 🌟 VISTA DINÁMICA DE CLUBES Y GRUPOS COMUNITARIOS -->
+    <!-- 👥 VISTA DINÁMICA DE CLUBES Y GRUPOS COMUNITARIOS -->
     <div id="clubs-detailed-view" class="hidden flex-grow py-12">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <button onclick="window.closeClubsView()" class="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">
@@ -205,9 +205,41 @@
 
                 <!-- Contenedor dinámico donde se inyectan las tarjetas de grupos -->
                 <div id="clubs-cards-container" class="grid sm:grid-cols-2 gap-6">
-                    <!-- Las tarjetas se generan dinámicamente con JS -->
+                    <!-- Dinámico por JS -->
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- 🌟 MODAL FORMULARIO DE ACCESO INTERACTIVO -->
+    <div id="join-club-modal" class="hidden fixed inset-0 z-50 bg-slate-950/40 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-white border border-slate-200 w-full max-w-md rounded-2xl shadow-2xl p-6 transform transition-all">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                    <span id="modal-club-icon">📚</span> Request Entry
+                </h3>
+                <button onclick="window.closeJoinModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+            </div>
+            
+            <p class="text-xs text-slate-500 mb-4">You are requesting to join <strong id="modal-club-name" class="text-slate-800"></strong>. The host will review your request and send the private group chat access details.</p>
+            
+            <form id="join-club-form" onsubmit="window.handleJoinSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Your Full Name</label>
+                    <input type="text" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Email Address</label>
+                    <input type="email" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Introduce Yourself (Optional)</label>
+                    <textarea class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-blue-500 h-20 placeholder:text-slate-300" placeholder="Hi Sarah! I live in High Street and love thrillers..."></textarea>
+                </div>
+                <button type="submit" class="w-full bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-slate-800 transition-all text-sm">
+                    Submit Request &rarr;
+                </button>
+            </form>
         </div>
     </div>
 
@@ -246,19 +278,18 @@
             "reviewsCount": "1 review"
         }];
 
-        // Datos locales estáticos para las páginas de los clubes
         const communityClubsData = {
             book: [
-                { title: "Overton Evening Book Club", icon: "📚", schedule: "Every first Tuesday at 7:30 PM", location: "The Old Chestnut Pub Lounge", host: "Sarah Jenkins", desc: "A relaxed monthly gathering exploring contemporary fiction, historical dramas, and popular biography over local ales and wines. Everyone is welcome to share opinions." },
-                { title: "Hampshire Sci-Fi & Fantasy Readers", icon: "🚀", schedule: "Bi-weekly Thursdays at 8:00 PM", location: "Online / Coffee Station Shop", host: "Mark Reynolds", desc: "Diving deep into speculative fiction, cosmic world-building, and high fantasy sagas. From classics to modern Hugo Award winners." }
+                { id: "b1", title: "Overton Evening Book Club", icon: "📚", schedule: "Every first Tuesday at 7:30 PM", location: "The Old Chestnut Pub Lounge", host: "Sarah Jenkins", desc: "A relaxed monthly gathering exploring contemporary fiction, historical dramas, and popular biography over local ales and wines. Everyone is welcome to share opinions." },
+                { id: "b2", title: "Hampshire Sci-Fi & Fantasy Readers", icon: "🚀", schedule: "Bi-weekly Thursdays at 8:00 PM", location: "Online / Coffee Station Shop", host: "Mark Reynolds", desc: "Diving deep into speculative fiction, cosmic world-building, and high fantasy sagas. From classics to modern Hugo Award winners." }
             ],
             walking: [
-                { title: "Overton Weekend Trail Walkers", icon: "🥾", schedule: "Saturdays at 9:30 AM", location: "Meet at Overton Station Car Park", host: "David Cole", desc: "Moderate 5km to 10km scenic loops across the Hampshire countryside, North Wessex Downs, and local river paths. Friendly dogs on leads are always welcome." },
-                { title: "Morning Brisk Pacing Group", icon: "🌅", schedule: "Mon/Wed/Fri at 7:00 AM", location: "St Mary's Church Gate Entrance", host: "Claire Evans", desc: "Start your day with an active 45-minute brisk community walk around the outer village lanes. Great for fitness and morning chats before work." }
+                { id: "w1", title: "Overton Weekend Trail Walkers", icon: "🥾", schedule: "Saturdays at 9:30 AM", location: "Meet at Overton Station Car Park", host: "David Cole", desc: "Moderate 5km to 10km scenic loops across the Hampshire countryside, North Wessex Downs, and local river paths. Friendly dogs on leads are always welcome." },
+                { id: "w2", title: "Morning Brisk Pacing Group", icon: "🌅", schedule: "Mon/Wed/Fri at 7:00 AM", location: "St Mary's Church Gate Entrance", host: "Claire Evans", desc: "Start your day with an active 45-minute brisk community walk around the outer village lanes. Great for fitness and morning chats before work." }
             ],
             hobbies: [
-                { title: "Village Acoustic Jam & Production", icon: "🎸", schedule: "Fridays at 7:00 PM", location: "Overton Community Centre Room B", host: "Emil C.", desc: "Bring your guitar, keys, or digital workspace setups! A collaborative space to jam, practice arrangement frameworks, and talk track audio engineering or plugin management." },
-                { title: "Overton Board Game Guild", icon: "🎲", schedule: "Sundays from 3:00 PM", location: "The Red Lion Function Room", host: "Tom & Jess", desc: "From casual strategy games like Settlers of Catan to deep cooperative campaigns. Friendly atmosphere, perfect for beginners and hardcore strategy players alike." }
+                { id: "h1", title: "Village Acoustic Jam & Production", icon: "🎸", schedule: "Fridays at 7:00 PM", location: "Overton Community Centre Room B", host: "Emil C.", desc: "Bring your guitar, keys, or digital workspace setups! A collaborative space to jam, practice arrangement frameworks, and talk track audio engineering or plugin management." },
+                { id: "h2", title: "Overton Board Game Guild", icon: "🎲", schedule: "Sundays from 3:00 PM", location: "The Red Lion Function Room", host: "Tom & Jess", desc: "From casual strategy games like Settlers of Catan to deep cooperative campaigns. Friendly atmosphere, perfect for beginners and hardcore strategy players alike." }
             ]
         };
 
@@ -298,7 +329,6 @@
             renderCardsContent(activeProfessionalsList);
         }
 
-        // 🎡 MOTOR LOGICO DEL CARRUSEL
         function showSlide(index) {
             const slides = document.querySelectorAll(".carousel-slide");
             const dots = document.getElementById("carousel-dots").children;
@@ -345,7 +375,7 @@
 
         startCarouselTimer();
 
-        // 🌟 GESTIÓN DE VISTAS PARA LOS CLUBES COMUNITARIOS
+        // 🎡 ACCIONES INTERACTIVAS DE CLUBES
         window.openClubsView = function(category) {
             document.getElementById("main-hub-view").classList.add("hidden");
             document.getElementById("profile-detailed-view").classList.add("hidden");
@@ -386,7 +416,7 @@
                     <div class="pt-4 border-t border-slate-200/60 text-xs text-slate-500 space-y-2">
                         <div class="flex items-center gap-2"><span>📅</span> <strong>When:</strong> ${club.schedule}</div>
                         <div class="flex items-center gap-2"><span>📍</span> <strong>Where:</strong> ${club.location}</div>
-                        <button onclick="alert('Message sent to host ${club.host}! They will contact you shortly with integration details.')" class="w-full mt-4 bg-slate-900 text-white font-bold py-2.5 rounded-xl hover:bg-slate-800 transition-all text-center">
+                        <button onclick="window.openJoinModal('${club.title}', '${club.icon}')" class="w-full mt-4 bg-slate-900 text-white font-bold py-2.5 rounded-xl hover:bg-slate-800 transition-all text-center">
                             Join Group Chat / Request Entry
                         </button>
                     </div>
@@ -394,6 +424,26 @@
                 container.appendChild(card);
             });
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // Lógica del Formulario Modal
+        window.openJoinModal = function(clubTitle, clubIcon) {
+            document.getElementById("modal-club-name").textContent = clubTitle;
+            document.getElementById("modal-club-icon").textContent = clubIcon;
+            const modal = document.getElementById("join-club-modal");
+            modal.classList.replace("hidden", "flex");
+        };
+
+        window.closeJoinModal = function() {
+            const modal = document.getElementById("join-club-modal");
+            modal.classList.replace("flex", "hidden");
+            document.getElementById("join-club-form").reset();
+        };
+
+        window.handleJoinSubmit = function(event) {
+            event.preventDefault();
+            alert("Success! Your entry pipeline request has been logged. The host will invite you to the private group chat shortly.");
+            window.closeJoinModal();
         };
 
         window.closeClubsView = function() {
