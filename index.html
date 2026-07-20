@@ -17,7 +17,7 @@
     <!-- Header / Navigation -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="window.closeProfile()">
                 <span class="text-2xl">🚀</span>
                 <span class="text-xl font-bold tracking-tight text-slate-900">Overton<span class="text-blue-600">Connect</span></span>
             </div>
@@ -27,109 +27,88 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <main class="flex-grow flex items-center py-12 md:py-20">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-950 mb-6 leading-tight">
-                    Bringing our village community closer together
-                </h1>
-                <p class="text-lg text-slate-600 leading-relaxed">
-                    Welcome to <strong class="text-slate-900 font-semibold">Overton Connect</strong>. A community-driven initiative built to support local businesses, connect independent traders, and help residents get things done safely and easily right here in Overton.
-                </p>
-            </div>
+    <!-- MAIN HUB (Vista principal) -->
+    <div id="main-hub-view" class="block">
+        <!-- Hero Section -->
+        <main class="py-12 md:py-20">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-950 mb-6 leading-tight">
+                        Bringing our village community closer together
+                    </h1>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        Welcome to <strong class="text-slate-900 font-semibold">Overton Connect</strong>. A community-driven initiative built to support local businesses, connect independent traders, and help residents get things done safely and easily right here in Overton.
+                    </p>
+                </div>
 
-            <!-- Main Action Cards / Buttons -->
-            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20">
-                
-                <!-- Card 1: Residents / Need a Service -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors">
-                            <span class="text-2xl text-blue-600">👤</span>
+                <!-- Action Cards -->
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20">
+                    <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors">
+                                <span class="text-2xl text-blue-600">👤</span>
+                            </div>
+                            <h2 class="text-2xl font-bold text-slate-900 mb-3">Need a Local Service?</h2>
+                            <p class="text-slate-600 leading-relaxed mb-6">
+                                Looking for a trusted plumber, electrician, gardener, or need assistance with local errands or home maintenance? Post your request here to find a reliable professional living and working within our community.
+                            </p>
                         </div>
-                        <h2 class="text-2xl font-bold text-slate-900 mb-3">Need a Local Service?</h2>
-                        <p class="text-slate-600 leading-relaxed mb-6">
-                            Looking for a trusted plumber, electrician, gardener, or need assistance with local errands or home maintenance? Post your request here to find a reliable professional living and working within our community.
-                        </p>
+                        <div>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe6vlsDkCGwvaDvhDkoZHsKJOrY6SIiuWmB8HUbFAl_ifM5kw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" 
+                               class="w-full inline-flex items-center justify-center bg-blue-600 text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-blue-700 active:bg-blue-800 transition shadow-sm hover:shadow group-hover:translate-x-0.5 transform duration-150">
+                                Request a Service &nbsp; ➡️
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe6vlsDkCGwvaDvhDkoZHsKJOrY6SIiuWmB8HUbFAl_ifM5kw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" 
-                           class="w-full inline-flex items-center justify-center bg-blue-600 text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-blue-700 active:bg-blue-800 transition shadow-sm hover:shadow group-hover:translate-x-0.5 transform duration-150">
-                            Request a Service &nbsp; ➡️
-                        </a>
+
+                    <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-6 group-hover:bg-emerald-100 transition-colors">
+                                <span class="text-2xl text-emerald-600">💼</span>
+                            </div>
+                            <h2 class="text-2xl font-bold text-slate-900 mb-3">Offer Your Services</h2>
+                            <p class="text-slate-600 leading-relaxed mb-6">
+                                Are you an independent trader, local delivery driver, hospitality venue, or business owner based in or around Overton? Join our growing digital business network today to receive direct service inquiries and match with local clients.
+                            </p>
+                        </div>
+                        <div>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSenFBMRWxrhPoNJ0oEj62FlkcG9uqrgZjKGE3jgpxc-IJ_yWw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" 
+                               class="w-full inline-flex items-center justify-center bg-emerald-600 text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-emerald-700 active:bg-emerald-800 transition shadow-sm hover:shadow group-hover:translate-x-0.5 transform duration-150">
+                                Join the Network &nbsp; ➡️
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Card 2: Businesses / Offer Services -->
-                <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-6 group-hover:bg-emerald-100 transition-colors">
-                            <span class="text-2xl text-emerald-600">💼</span>
+                <!-- DIRECTORY SECTION -->
+                <div class="border-t border-slate-200 pt-16 mb-20">
+                    <div class="max-w-6xl mx-auto flex flex-col items-center">
+                        <div class="text-center mb-10">
+                            <h2 class="text-3xl font-bold tracking-tight text-slate-900 mb-2">Verified Local Professionals</h2>
+                            <p class="text-slate-500">Connecting you with approved independent trades and services in Overton.</p>
                         </div>
-                        <h2 class="text-2xl font-bold text-slate-900 mb-3">Offer Your Services</h2>
-                        <p class="text-slate-600 leading-relaxed mb-6">
-                            Are you an independent trader, local delivery driver, hospitality venue, or business owner based in or around Overton? Join our growing digital business network today to receive direct service inquiries and match with local clients.
-                        </p>
-                    </div>
-                    <div>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSenFBMRWxrhPoNJ0oEj62FlkcG9uqrgZjKGE3jgpxc-IJ_yWw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" 
-                           class="w-full inline-flex items-center justify-center bg-emerald-600 text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-emerald-700 active:bg-emerald-800 transition shadow-sm hover:shadow group-hover:translate-x-0.5 transform duration-150">
-                            Join the Network &nbsp; ➡️
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AUTOMATED DIRECTORY SECTION -->
-            <div class="border-t border-slate-200 pt-16 mb-20">
-                <div class="max-w-6xl mx-auto flex flex-col items-center">
-                    <div class="text-center mb-10">
-                        <h2 class="text-3xl font-bold tracking-tight text-slate-900 mb-2">Verified Local Professionals</h2>
-                        <p class="text-slate-500">Connecting you with approved independent trades and services in Overton.</p>
-                    </div>
-                    
-                    <!-- Dynamic Grid Container -->
-                    <div id="directory-grid" class="w-full max-w-[500px] gap-8">
-                        <div id="directory-loading" class="text-center py-12 text-slate-400">
-                            <span class="inline-block animate-spin text-2xl mb-2">🔄</span>
-                            <p class="text-sm">Loading verified directory pipeline...</p>
+                        <div id="directory-grid" class="w-full max-w-[500px] gap-8">
+                            <div id="directory-loading" class="text-center py-12 text-slate-400">
+                                <span class="inline-block animate-spin text-2xl mb-2">🔄</span>
+                                <p class="text-sm">Loading verified directory pipeline...</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </main>
+    </div>
 
-            <!-- Core Values Banner -->
-            <div class="border-t border-slate-200 pt-12">
-                <div class="grid sm:grid-cols-3 gap-8 text-center sm:text-left">
-                    <div class="space-y-2">
-                        <h3 class="font-bold text-slate-900 flex items-center gap-2 justify-center sm:justify-start">
-                            <span class="text-lg">🏡</span> 1. Keep it Local
-                        </h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">
-                            Every request, transaction, and project stays entirely within the Overton village and Hampshire economy.
-                        </p>
-                    </div>
-                    <div class="space-y-2">
-                        <h3 class="font-bold text-slate-900 flex items-center gap-2 justify-center sm:justify-start">
-                            <span class="text-lg">⚡</span> 2. Automated Alerts
-                        </h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">
-                            Our instant notifications match client jobs with available service providers seamlessly behind the scenes.
-                        </p>
-                    </div>
-                    <div class="space-y-2">
-                        <h3 class="font-bold text-slate-900 flex items-center gap-2 justify-center sm:justify-start">
-                            <span class="text-lg">🤝</span> 3. Zero Commissions
-                        </h3>
-                        <p class="text-sm text-slate-500 leading-relaxed">
-                            No service fees or platforms cutting into your earnings. Direct agreement between neighbors and traders.
-                        </p>
-                    </div>
-                </div>
-            </div>
+    <!-- DYNAMIC PROFILE VIEW (Vista extendida para tu Pitch) -->
+    <div id="profile-detailed-view" class="hidden flex-grow py-12">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <button onclick="window.closeProfile()" class="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">
+                ⬅ Back to Directory
+            </button>
+            
+            <div id="profile-content-target"></div>
         </div>
-    </main>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-6">
@@ -139,8 +118,7 @@
     </footer>
 
     <script>
-        // 🔗 COLOQUE AQUÍ EL ENLACE DE SU FORMULARIO DE RESEÑAS DE GOOGLE CUANDO LO TENGA
-       const URL_FORMULARIO_RESEÑAS = "https://forms.gle/SwoLfg7wQuPHrs3o7";
+        const URL_FORMULARIO_RESEÑAS = "https://forms.gle/SwoLfg7wQuPHrs3o7"; 
 
         const backupData = [{
             "id": 1,
@@ -150,33 +128,96 @@
             "phone": "07444169701",
             "address": "RG253NS",
             "services": "Language Tutor", 
-            "description": "Helping adults, professionals, and students unlock their full potential in Spanish and English. Personalized language coaching designed to build real confidence and achieve fluent communication."
+            "description": "Helping adults, professionals, and students unlock their full potential in Spanish and English. Personalized language coaching designed to build real confidence and achieve fluent communication.",
+            "longBio": "With years of dedicated teaching experience, Chico Language Solutions specialized in high-impact conversational frameworks. Whether you are looking to boost your corporate business negotiation skills, prepping for fluency exams, or simply starting your language journey from scratch, we offer bespoke, tailored lesson pipelines that match your speed and lifestyle directly here in Hampshire.",
+            "rating": "5.0",
+            "reviewsCount": "12 reviews"
         }];
+
+        let activeProfessionalsList = [...backupData];
 
         const categoryThemes = {
             "language tutor": { bg: "from-indigo-600 via-purple-600 to-cyan-500", text: "text-indigo-700", badge: "bg-indigo-50/60 border-indigo-100", dot: "bg-indigo-500" },
+            "restaurant": { bg: "from-amber-500 via-orange-600 to-red-500", text: "text-amber-700", badge: "bg-amber-50 border-amber-100", dot: "bg-amber-500" },
             "default": { bg: "from-slate-700 via-slate-800 to-slate-900", text: "text-slate-700", badge: "bg-slate-50 border-slate-100", dot: "bg-slate-500" }
         };
 
         function renderDirectoryCards(data) {
-            const grid = document.getElementById("directory-grid");
             const loading = document.getElementById("directory-loading");
             if (loading) loading.remove();
             
-            if (!data || data.length === 0 || data.error) {
-                renderCardsContent(backupData);
-                return;
+            if (data && data.length > 0 && !data.error) {
+                activeProfessionalsList = data;
             }
-            renderCardsContent(data);
+            renderCardsContent(activeProfessionalsList);
         }
 
-        // Función encargada de redirigir de forma interactiva al formulario
         window.dejarReseña = function(businessName) {
-            if(URL_FORMULARIO_RESEÑAS === "https://docs.google.com/forms/") {
-                alert(`¡Sistema en preparación! El formulario para dejar opiniones sobre ${businessName} estará conectado muy pronto.`);
-            } else {
-                window.open(URL_FORMULARIO_RESEÑAS, '_blank');
-            }
+            window.open(URL_FORMULARIO_RESEÑAS, '_blank');
+        };
+
+        window.openProfile = function(id) {
+            const prof = activeProfessionalsList.find(p => p.id == id) || backupData[0];
+            const catKey = (prof.services || "").toLowerCase().trim();
+            const theme = categoryThemes[catKey] || categoryThemes["default"];
+            
+            document.getElementById("main-hub-view").classList.add("hidden");
+            document.getElementById("profile-detailed-view").classList.remove("hidden");
+            
+            const target = document.getElementById("profile-content-target");
+            target.innerHTML = `
+                <div class="bg-white border border-slate-200 rounded-[32px] overflow-hidden shadow-xl p-8">
+                    <div class="flex flex-col sm:flex-row items-center gap-6 mb-8 pb-6 border-b border-slate-100">
+                        <div class="w-24 h-24 rounded-2xl bg-gradient-to-tr ${theme.bg} text-white font-bold text-3xl flex items-center justify-center border-4 border-white shadow-md">
+                            ${prof.businessName.substring(0,2).toUpperCase()}
+                        </div>
+                        <div class="text-center sm:text-left flex-grow">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border ${theme.badge} ${theme.text} mb-2">
+                                🎓 ${prof.services}
+                            </span>
+                            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">${prof.businessName}</h2>
+                            <p class="text-sm text-slate-500 mt-1">Managed by <strong class="text-slate-700">${prof.contactName}</strong></p>
+                        </div>
+                        <div class="bg-emerald-50 border border-emerald-100 px-4 py-2 rounded-2xl text-center">
+                            <span class="block text-xl font-bold text-emerald-700">⭐ ${prof.rating || '5.0'}</span>
+                            <span class="text-[10px] uppercase font-bold text-emerald-600 tracking-wider">${prof.reviewsCount || 'Verified'}</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 mb-8">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">About the Business</h3>
+                            <p class="text-slate-700 leading-relaxed">${prof.longBio || prof.description}</p>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+                            <div class="bg-slate-50 p-4 rounded-xl">
+                                <span class="block text-xs text-slate-400 font-bold uppercase mb-1">Direct Phone</span>
+                                <a href="tel:${prof.phone}" class="text-indigo-600 font-bold hover:underline text-lg">${prof.phone}</a>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl">
+                                <span class="block text-xs text-slate-400 font-bold uppercase mb-1">Email Address</span>
+                                <a href="mailto:${prof.email}" class="text-indigo-600 font-bold hover:underline text-lg break-all">${prof.email}</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="tel:${prof.phone}" class="flex-1 bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-600/20 hover:bg-blue-700 text-center transition-all">
+                            Book / Contact Now
+                        </a>
+                        <button onclick="window.dejarReseña('${prof.businessName}')" class="flex-1 bg-slate-100 text-slate-700 font-bold py-4 rounded-xl hover:bg-slate-200 transition-all">
+                            Write a Review
+                        </button>
+                    </div>
+                </div>
+            `;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.closeProfile = function() {
+            document.getElementById("profile-detailed-view").classList.add("hidden");
+            document.getElementById("main-hub-view").classList.remove("hidden");
         };
 
         function renderCardsContent(dataList) {
@@ -187,102 +228,35 @@
                 const catKey = (prof.services || "").toLowerCase().trim();
                 const theme = categoryThemes[catKey] || categoryThemes["default"];
                 
-                const initials = (prof.contactName || "EP")
-                    .split(" ")
-                    .map(n => n[0])
-                    .join("")
-                    .substring(0, 2)
-                    .toUpperCase();
-
                 const card = document.createElement("div");
-                card.className = "bg-white border border-slate-150 rounded-[24px] overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 group flex flex-col justify-between w-full mx-auto mb-6";
+                card.className = "bg-white border border-slate-150 rounded-[24px] overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-full mb-6";
                 
                 card.innerHTML = `
-                    <div>
-                        <div class="bg-gradient-to-r ${theme.bg} px-6 py-4 flex items-center justify-between text-white text-[11px] font-bold tracking-wider uppercase">
-                            <span class="flex items-center gap-1.5">
-                                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                                ✔ Verified Local Professional
-                            </span>
-                            <span class="bg-white/20 backdrop-blur-md text-white px-2.5 py-0.5 rounded-full border border-white/10 normal-case">🏡 Community Trusted</span>
-                        </div>
-
-                        <div class="p-6">
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="w-16 h-16 rounded-full bg-gradient-to-tr ${theme.bg} text-white font-bold text-xl flex items-center justify-center border-4 border-white shadow-md group-hover:rotate-3 transition-transform duration-300 shrink-0">
-                                    ${initials}
-                                </div>
-                                <div>
-                                    <h3 class="text-2xl font-bold text-slate-900 tracking-tight leading-snug">${prof.businessName}</h3>
-                                    <div class="mt-1.5 space-y-0.5 text-xs font-medium text-slate-500">
-                                        <div class="flex items-center gap-1.5 text-emerald-600">
-                                            <span>✔ Identity Verified</span>
-                                        </div>
-                                        <div class="flex items-center gap-1.5">
-                                            <span>✔ Responds within 2 hours</span>
-                                        </div>
-                                        <div class="flex items-center gap-1.5">
-                                            <span>✔ Serving Overton since 2026</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="bg-white border border-slate-200 rounded-2xl p-4 mb-6 flex items-center justify-between shadow-sm">
-                                <div class="flex items-center gap-1.5">
-                                    <span class="text-amber-400 text-xl tracking-tighter">★★★★★</span>
-                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">New Member</span>
-                                </div>
-                                <span class="text-xs text-slate-500 font-medium">Be the first to recommend them!</span>
-                            </div>
-
-                            <p class="text-sm text-slate-600 leading-relaxed font-normal mb-6">
-                                ${prof.description}
-                            </p>
-                        </div>
+                    <div class="bg-gradient-to-r ${theme.bg} px-6 py-4 flex items-center justify-between text-white text-[11px] font-bold tracking-wider uppercase">
+                        <span class="flex items-center gap-1.5">✔ Verified Local Professional</span>
+                        <span class="bg-white/20 text-white px-2.5 py-0.5 rounded-full border border-white/10 normal-case">🏡 Overton</span>
                     </div>
-
-                    <div class="px-6 pb-6 mt-auto">
-                        <div class="flex flex-wrap gap-2 items-center justify-between border-t border-slate-100 pt-4 mb-6">
-                            <span class="text-xs font-bold px-3 py-1 rounded-full border ${theme.badge} ${theme.text}">
-                                🎓 ${prof.services}
-                            </span>
-                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-0.5 rounded-full">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 🟢 Local Business
-                            </span>
-                        </div>
-
-                        <div class="space-y-3">
-                            <button onclick="alert('Profile view coming very soon for ${prof.businessName}!')" 
-                                    class="w-full bg-[#4F46E5] text-white font-bold text-sm py-4 px-4 rounded-xl hover:bg-[#4338CA] active:bg-[#3730A3] shadow-md hover:shadow-lg transition-all duration-200 text-center tracking-wide block">
-                                View Full Profile
-                            </button>
-                            <button onclick="window.dejarReseña('${prof.businessName}')" 
-                                    class="w-full text-center text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors block py-1">
-                                Leave the first review &rarr;
-                            </button>
-                        </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-2">${prof.businessName}</h3>
+                        <p class="text-sm text-slate-600 mb-6">${prof.description}</p>
+                        <button onclick="window.openProfile(${prof.id})" class="w-full bg-[#4F46E5] text-white font-bold text-sm py-3.5 rounded-xl hover:bg-[#4338CA] transition-all tracking-wide">
+                            View Full Profile
+                        </button>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        window.callback = function(data) {
-            renderDirectoryCards(data);
-        };
+        window.callback = function(data) { renderDirectoryCards(data); };
 
         (function() {
             const script = document.createElement("script");
             script.type = "text/javascript";
             script.src = "https://script.google.com/macros/s/AKfycbySeZzS5a4YaTx3fWNdzn0BGjoG280PmjXFi3BKbvs5DLzG6yM4RfHgiFKD2qvMThmL/exec?callback=callback&_ts=" + new Date().getTime();
-            
-            script.onerror = function() {
-                renderDirectoryCards(backupData);
-            };
+            script.onerror = function() { renderDirectoryCards(backupData); };
             document.body.appendChild(script);
         })();
     </script>
-
 </body>
 </html>
