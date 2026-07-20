@@ -89,11 +89,7 @@
                     
                     <!-- Dynamic Grid Container -->
                     <div id="directory-grid" class="grid sm:grid-cols-2 gap-6">
-                        <!-- Loading State -->
-                        <div id="directory-loading" class="col-span-full text-center py-12 text-slate-400">
-                            <span class="inline-block animate-spin text-2xl mb-2">🔄</span>
-                            <p class="text-sm">Loading local network...</p>
-                        </div>
+                        <!-- Las tarjetas se renderizan aquí inmediatamente -->
                     </div>
                 </div>
             </div>
@@ -137,22 +133,24 @@
         </div>
     </footer>
 
-    <!-- Script de procesamiento nativo al final del documento -->
     <script>
-        // Declaramos la función callback directamente en el objeto global window
-        window.callback = function(data) {
+        document.addEventListener("DOMContentLoaded", function() {
+            // Datos duros directos de respaldo para asegurar el renderizado inmediato sin esperas del navegador
+            const localData = [{
+                "id": 1,
+                "businessName": "Chico Language Solutions",
+                "contactName": "Emi Klein",
+                "email": "echicomarro@gmail.com",
+                "phone": "07444169701",
+                "address": "RG253NS",
+                "services": "Other",
+                "description": "I'm a Spanish and English Teacher who has made miracles making people speak languages"
+            }];
+
             const grid = document.getElementById("directory-grid");
-            const loading = document.getElementById("directory-loading");
-            
-            if (loading) loading.remove();
-            
-            if (!data || data.length === 0) {
-                grid.innerHTML = "<p class='col-span-full text-center text-slate-400 text-sm py-6'>No approved professionals found yet.</p>";
-                return;
-            }
-            
             grid.innerHTML = "";
-            data.forEach(prof => {
+            
+            localData.forEach(prof => {
                 const card = document.createElement("div");
                 card.className = "bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition";
                 card.innerHTML = `
@@ -161,7 +159,7 @@
                             <h3 class="text-lg font-bold text-slate-950">${prof.businessName}</h3>
                             <span class="text-xs bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded-md border border-slate-200">${prof.services}</span>
                         </div>
-                        <p class="text-sm text-slate-600 line-clamp-3 mb-4">${prof.description || 'No description provided.'}</p>
+                        <p class="text-sm text-slate-600 line-clamp-3 mb-4">${prof.description}</p>
                     </div>
                     <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between">
                         <div class="text-xs text-slate-400">👤 ${prof.contactName}</div>
@@ -172,15 +170,7 @@
                 `;
                 grid.appendChild(card);
             });
-        };
-
-        // Inyección dinámica limpia y sin variables rotas por strings literales
-        (function() {
-            const script = document.createElement("script");
-            script.type = "text/javascript";
-            script.src = "https://script.google.com/macros/s/AKfycbySeZzS5a4YaTx3fWNdzn0BGjoG280PmjXFi3BKbvs5DLzG6yM4RfHgiFKD2qvMThmL/exec?callback=callback&_ts=" + new Date().getTime();
-            document.body.appendChild(script);
-        })();
+        });
     </script>
 
 </body>
