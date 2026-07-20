@@ -120,7 +120,6 @@
     <script>
         const URL_FORMULARIO_RESEÑAS = "https://forms.gle/SwoLfg7wQuPHrs3o7"; 
 
-        // Lista global sincronizada con tu correo correcto eechico@gmail.com
         const backupData = [{
             "id": 1,
             "businessName": "Chico Language Solutions",
@@ -132,10 +131,11 @@
             "description": "Helping adults, professionals, and students unlock their full potential in Spanish and English. Personalized language coaching designed to build real confidence and achieve fluent communication.",
             "longBio": "With years of dedicated teaching experience, Chico Language Solutions specializes in high-impact conversational frameworks. Whether you are looking to boost your corporate business negotiation skills, prepping for fluency exams, or simply starting your language journey from scratch, we offer bespoke, tailored lesson pipelines that match your speed and lifestyle directly here in Hampshire.",
             "rating": "5.0",
-            "reviewsCount": "12 reviews"
+            "reviewsCount": "1 review"
         }];
 
         let activeProfessionalsList = [...backupData];
+        let globalReviewsList = []; // Aquí guardaremos las reseñas del Sheet
 
         const categoryThemes = {
             "language tutor": { bg: "from-indigo-600 via-purple-600 to-cyan-500", text: "text-indigo-700", badge: "bg-indigo-50/60 border-indigo-100", dot: "bg-indigo-500" },
@@ -143,35 +143,29 @@
             "default": { bg: "from-slate-700 via-slate-800 to-slate-900", text: "text-slate-700", badge: "bg-slate-50 border-slate-100", dot: "bg-slate-500" }
         };
 
-        // 🛡️ MOTOR DE CENSURA Y CONTROL DE LENGUAJE AUTOMÁTICO
+        // 🛡️ MOTOR DE CENSURA AUTOMÁTICO
         function cleanBadWords(text) {
             if (!text) return "";
-            
-            // Diccionario de groserías comunes (Expandible fácilmente)
             const badWords = [
-                "shit", "piece of shit", "asshole", "bitch", "crap", "fuck", "bastard",
+                "shit", "piece of shit", "asshole", "bitch", "crap", "fuck", "fucking", "bastard",
                 "mierda", "cabron", "cabrón", "puto", "puta", "pendejo", "culero", "pendeja"
             ];
-            
             let cleanedText = text;
-            
             badWords.forEach(word => {
-                // Expresión regular para buscar la palabra completa sin importar mayúsculas/minúsculas
                 const regex = new RegExp(`\\b${word}\\b`, 'gi');
-                cleanedText = cleanedText.replace(regex, (match) => {
-                    return "*".repeat(match.length); // Transforma "shit" en "****"
-                });
+                cleanedText = cleanedText.replace(regex, (match) => "*".repeat(match.length));
             });
-            
             return cleanedText;
         }
 
-        function renderDirectoryCards(data) {
+        function renderDirectoryCards(response) {
             const loading = document.getElementById("directory-loading");
             if (loading) loading.remove();
             
-            if (data && data.length > 0 && !data.error) {
-                activeProfessionalsList = data;
+            // Separar profesionales y reseñas desde la respuesta combinada del script
+            if (response && response.professionals) {
+                activeProfessionalsList = response.professionals;
+                globalReviewsList = response.reviews || [];
             }
             renderCardsContent(activeProfessionalsList);
         }
@@ -185,9 +179,24 @@
             const catKey = (prof.services || "").toLowerCase().trim();
             const theme = categoryThemes[catKey] || categoryThemes["default"];
             
-            // Pasar la biografía por el filtro automático antes de pintar en pantalla
             const safeBio = cleanBadWords(prof.longBio || prof.description);
             
+            // 🔎 Filtrar y armar las reseñas de este negocio específico
+            const businessReviews = globalReviewsList.filter(r => r.businessName.toLowerCase().trim() === prof.businessName.toLowerCase().trim());
+            
+            let reviewsHTML = `<p class="text-sm text-slate-500 italic">No reviews yet. Be the first to leave one!</p>`;
+            if (businessReviews.length > 0) {
+                reviewsHTML = businessReviews.map(r => `
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                        <div class="flex items-center justify-between mb-2">
+                            <strong class="text-sm text-slate-800">${r.reviewerName}</strong>
+                            <span class="text-xs font-bold text-amber-600">⭐ ${r.rating}.0</span>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">"${cleanBadWords(r.comment)}"</p>
+                    </div>
+                `).join('');
+            }
+
             document.getElementById("main-hub-view").classList.add("hidden");
             document.getElementById("profile-detailed-view").classList.remove("hidden");
             
@@ -210,7 +219,7 @@
                         </div>
                         <div class="bg-emerald-50 border border-emerald-100 px-4 py-2 rounded-2xl text-center">
                             <span class="block text-xl font-bold text-emerald-700">⭐ ${prof.rating || '5.0'}</span>
-                            <span class="text-[10px] uppercase font-bold text-emerald-600 tracking-wider">${prof.reviewsCount || 'Verified'}</span>
+                            <span class="text-[10px] uppercase font-bold text-emerald-600 tracking-wider">${businessReviews.length} ${businessReviews.length === 1 ? 'review' : 'reviews'}</span>
                         </div>
                     </div>
 
@@ -228,6 +237,14 @@
                             <div class="bg-slate-50 p-4 rounded-xl">
                                 <span class="block text-xs text-slate-400 font-bold uppercase mb-1">Email Address</span>
                                 <a href="mailto:${prof.email}" class="text-indigo-600 font-bold hover:underline text-lg break-all">${prof.email}</a>
+                            </div>
+                        </div>
+
+                        <!-- 💬 SECCIÓN VISUAL DE RESEÑAS -->
+                        <div class="pt-6 border-t border-slate-100">
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Community Reviews</h3>
+                            <div class="space-y-4 mb-4">
+                                ${reviewsHTML}
                             </div>
                         </div>
                     </div>
@@ -257,8 +274,6 @@
             dataList.forEach(prof => {
                 const catKey = (prof.services || "").toLowerCase().trim();
                 const theme = categoryThemes[catKey] || categoryThemes["default"];
-                
-                // Limpiar también la descripción corta de la tarjeta principal
                 const safeDesc = cleanBadWords(prof.description);
                 
                 const card = document.createElement("div");
