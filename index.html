@@ -6,7 +6,7 @@
     <title>Overton Connect - Supporting the Local Community of Overton, Hampshire</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
@@ -89,9 +89,13 @@
                         <p class="text-slate-500">Connecting you with approved independent trades and services in Overton.</p>
                     </div>
                     
-                    <!-- Dynamic Grid Container - 500px Centrado -->
+                    <!-- Dynamic Grid Container -->
                     <div id="directory-grid" class="w-full max-w-[500px] gap-8">
-                        <!-- Las tarjetas premium ultra pulidas se renderizan aquí -->
+                        <!-- Estado de carga inicial -->
+                        <div id="directory-loading" class="text-center py-12 text-slate-400">
+                            <span class="inline-block animate-spin text-2xl mb-2">🔄</span>
+                            <p class="text-sm">Loading verified directory pipeline...</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -136,27 +140,41 @@
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const localData = [{
-                "id": 1,
-                "businessName": "Chico Language Solutions",
-                "contactName": "Emi Klein",
-                "email": "echicomarro@gmail.com",
-                "phone": "07444169701",
-                "address": "RG253NS",
-                "services": "Language Tutor", 
-                "description": "Helping adults, professionals and students learn Spanish and English with confidence. Made miracles making people speak languages."
-            }];
+        // Datos de respaldo con tu nueva descripción premium elegida
+        const backupData = [{
+            "id": 1,
+            "businessName": "Chico Language Solutions",
+            "contactName": "Emi Klein",
+            "email": "echicomarro@gmail.com",
+            "phone": "07444169701",
+            "address": "RG253NS",
+            "services": "Language Tutor", 
+            "description": "Helping adults, professionals, and students unlock their full potential in Spanish and English. Personalized language coaching designed to build real confidence and achieve fluent communication."
+        }];
 
-            const categoryThemes = {
-                "language tutor": { bg: "from-indigo-600 via-purple-600 to-cyan-500", text: "text-indigo-700", badge: "bg-indigo-50/60 border-indigo-100", dot: "bg-indigo-500" },
-                "default": { bg: "from-slate-700 via-slate-800 to-slate-900", text: "text-slate-700", badge: "bg-slate-50 border-slate-100", dot: "bg-slate-500" }
-            };
+        const categoryThemes = {
+            "language tutor": { bg: "from-indigo-600 via-purple-600 to-cyan-500", text: "text-indigo-700", badge: "bg-indigo-50/60 border-indigo-100", dot: "bg-indigo-500" },
+            "default": { bg: "from-slate-700 via-slate-800 to-slate-900", text: "text-slate-700", badge: "bg-slate-50 border-slate-100", dot: "bg-slate-500" }
+        };
 
+        function renderDirectoryCards(data) {
+            const grid = document.getElementById("directory-grid");
+            const loading = document.getElementById("directory-loading");
+            if (loading) loading.remove();
+            
+            if (!data || data.length === 0 || data.error) {
+                // Si la red externa de Google tarda mucho, renderizamos el respaldo premium al instante
+                renderCardsContent(backupData);
+                return;
+            }
+            renderCardsContent(data);
+        }
+
+        function renderCardsContent(dataList) {
             const grid = document.getElementById("directory-grid");
             grid.innerHTML = "";
             
-            localData.forEach(prof => {
+            dataList.forEach(prof => {
                 const catKey = (prof.services || "").toLowerCase().trim();
                 const theme = categoryThemes[catKey] || categoryThemes["default"];
                 
@@ -172,7 +190,6 @@
                 
                 card.innerHTML = `
                     <div>
-                        <!-- Encabezado con degradado e insignia de la comunidad en la derecha -->
                         <div class="bg-gradient-to-r ${theme.bg} px-6 py-4 flex items-center justify-between text-white text-[11px] font-bold tracking-wider uppercase">
                             <span class="flex items-center gap-1.5">
                                 <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -181,9 +198,7 @@
                             <span class="bg-white/20 backdrop-blur-md text-white px-2.5 py-0.5 rounded-full border border-white/10 normal-case">🏡 Community Trusted</span>
                         </div>
 
-                        <!-- Cuerpo de la Tarjeta -->
                         <div class="p-6">
-                            <!-- Fila de Perfil Principal -->
                             <div class="flex items-center gap-4 mb-6">
                                 <div class="w-16 h-16 rounded-full bg-gradient-to-tr ${theme.bg} text-white font-bold text-xl flex items-center justify-center border-4 border-white shadow-md group-hover:rotate-3 transition-transform duration-300 shrink-0">
                                     ${initials}
@@ -204,7 +219,6 @@
                                 </div>
                             </div>
 
-                            <!-- Cuadro de Valoración Estilo Airbnb (Fondo Blanco, Borde Gris y Estrellas un 15% más grandes) -->
                             <div class="bg-white border border-slate-200 rounded-2xl p-4 mb-6 flex items-center justify-between shadow-sm">
                                 <div class="flex items-center gap-1.5">
                                     <span class="text-amber-400 text-xl tracking-tighter">★★★★★</span>
@@ -213,14 +227,12 @@
                                 <span class="text-xs text-slate-500 font-medium">Be the first to recommend them!</span>
                             </div>
 
-                            <!-- Descripción sin comillas y con más aire/espacio abajo (mb-6) -->
                             <p class="text-sm text-slate-600 leading-relaxed font-normal mb-6">
                                 ${prof.description}
                             </p>
                         </div>
                     </div>
 
-                    <!-- Pie de Tarjeta con Etiquetas e Insignia Local Pulida -->
                     <div class="px-6 pb-6 mt-auto">
                         <div class="flex flex-wrap gap-2 items-center justify-between border-t border-slate-100 pt-4 mb-6">
                             <span class="text-xs font-bold px-3 py-1 rounded-full border ${theme.badge} ${theme.text}">
@@ -231,7 +243,6 @@
                             </span>
                         </div>
 
-                        <!-- Botón Principal Índigo -->
                         <div class="space-y-3">
                             <button onclick="alert('Profile view coming very soon for ${prof.businessName}!')" 
                                     class="w-full bg-[#4F46E5] text-white font-bold text-sm py-4 px-4 rounded-xl hover:bg-[#4338CA] active:bg-[#3730A3] shadow-md hover:shadow-lg transition-all duration-200 text-center tracking-wide block">
@@ -246,7 +257,25 @@
                 `;
                 grid.appendChild(card);
             });
-        });
+        }
+
+        // Definimos la ventana receptora para el JSONP dinámico
+        window.callback = function(data) {
+            renderDirectoryCards(data);
+        };
+
+        // Disparamos la llamada real hacia Google Apps Script de forma controlada
+        (function() {
+            const script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = "https://script.google.com/macros/s/AKfycbySeZzS5a4YaTx3fWNdzn0BGjoG280PmjXFi3BKbvs5DLzG6yM4RfHgiFKD2qvMThmL/exec?callback=callback&_ts=" + new Date().getTime();
+            
+            // Si hay un bloqueo estricto de CORS, el script saltará al respaldo automáticamente
+            script.onerror = function() {
+                renderDirectoryCards(backupData);
+            };
+            document.body.appendChild(script);
+        })();
     </script>
 
 </body>
