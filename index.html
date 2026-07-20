@@ -135,7 +135,7 @@
         }];
 
         let activeProfessionalsList = [...backupData];
-        let globalReviewsList = []; // Aquí guardaremos las reseñas del Sheet
+        let globalReviewsList = []; 
 
         const categoryThemes = {
             "language tutor": { bg: "from-indigo-600 via-purple-600 to-cyan-500", text: "text-indigo-700", badge: "bg-indigo-50/60 border-indigo-100", dot: "bg-indigo-500" },
@@ -162,7 +162,6 @@
             const loading = document.getElementById("directory-loading");
             if (loading) loading.remove();
             
-            // Separar profesionales y reseñas desde la respuesta combinada del script
             if (response && response.professionals) {
                 activeProfessionalsList = response.professionals;
                 globalReviewsList = response.reviews || [];
@@ -180,8 +179,6 @@
             const theme = categoryThemes[catKey] || categoryThemes["default"];
             
             const safeBio = cleanBadWords(prof.longBio || prof.description);
-            
-            // 🔎 Filtrar y armar las reseñas de este negocio específico
             const businessReviews = globalReviewsList.filter(r => r.businessName.toLowerCase().trim() === prof.businessName.toLowerCase().trim());
             
             let reviewsHTML = `<p class="text-sm text-slate-500 italic">No reviews yet. Be the first to leave one!</p>`;
@@ -301,7 +298,7 @@
         (function() {
             const script = document.createElement("script");
             script.type = "text/javascript";
-            script.src = "https://script.google.com/macros/s/AKfycbwoK24ERU51BzuW13TMVYDDA1Ui6HoYg8Eo9-KJbNJJZ7YfQhJ310AxEFHrjrDvfenB/exec?callback=callback&_ts=" + new Date().getTime();
+            script.src = "https://script.google.com/macros/s/AKfycbyiPyAfhMun1LeGZWhGdOiNRFQ_ud4vS0-dbz2bbZFQFpvJRZ8IX_EBAm0gH4Au5fcE/exec?callback=callback&_ts=" + new Date().getTime();
             script.onerror = function() { renderDirectoryCards(backupData); };
             document.body.appendChild(script);
         })();
