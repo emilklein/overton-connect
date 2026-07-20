@@ -11,41 +11,6 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
     </style>
-    <!-- Declaramos el callback en el HEAD para que exista ANTES de invocar el script remoto -->
-    <script>
-        window.callback = function(data) {
-            const grid = document.getElementById("directory-grid");
-            const loading = document.getElementById("directory-loading");
-            if (loading) loading.remove();
-            
-            if (!data || data.length === 0) {
-                grid.innerHTML = "<p class='col-span-full text-center text-slate-400 text-sm py-6'>No approved professionals found yet.</p>";
-                return;
-            }
-            
-            grid.innerHTML = "";
-            data.forEach(prof => {
-                const card = document.createElement("div");
-                card.className = "bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition";
-                card.innerHTML = `
-                    <div>
-                        <div class="flex items-start justify-between mb-3">
-                            <h3 class="text-lg font-bold text-slate-950">${prof.businessName}</h3>
-                            <span class="text-xs bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded-md border border-slate-200">${prof.services}</span>
-                        </div>
-                        <p class="text-sm text-slate-600 line-clamp-3 mb-4">${prof.description || 'No description provided.'}</p>
-                    </div>
-                    <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between">
-                        <div class="text-xs text-slate-400">👤 ${prof.contactName}</div>
-                        <button onclick="alert('Reviews system coming very soon for ${prof.businessName}!')" class="text-xs font-semibold text-blue-600 hover:text-blue-700 transition">
-                            View Profile & Reviews 🌟
-                        </button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        };
-    </script>
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col justify-between">
 
@@ -119,7 +84,7 @@
             <!-- AUTOMATED DIRECTORY SECTION -->
             <div class="border-t border-slate-200 pt-16 mb-20">
                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-3xl font-bold tracking-tight text-slate-950 mb-2 text-center sm:text-left">Verified Local Professionals</h2>
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 mb-2 text-center sm:text-left">Verified Local Professionals</h2>
                     <p class="text-slate-500 mb-8 text-center sm:text-left">Connecting you with approved independent trades and services in Overton.</p>
                     
                     <!-- Dynamic Grid Container -->
@@ -148,7 +113,7 @@
                         <h3 class="font-bold text-slate-900 flex items-center gap-2 justify-center sm:justify-start">
                             <span class="text-lg">⚡</span> 2. Automated Alerts
                         </h3>
-                        <p class="text-sm text-slate-500 leather-relaxed">
+                        <p class="text-sm text-slate-500 leading-relaxed">
                             Our instant notifications match client jobs with available service providers seamlessly behind the scenes.
                         </p>
                     </div>
@@ -172,8 +137,51 @@
         </div>
     </footer>
 
-    <!-- Cargamos el script de forma diferida (defer) asegurando que el DOM y la ventana estén listos -->
-    <script defer src="https://script.google.com/macros/s/AKfycbySeZzS5a4YaTx3fWNdzn0BGjoG280PmjXFi3BKbvs5DLzG6yM4RfHgiFKD2qvMThmL/exec?callback=callback"></script>
+    <!-- Script de procesamiento nativo al final del documento -->
+    <script>
+        // Declaramos la función callback directamente en el objeto global window
+        window.callback = function(data) {
+            const grid = document.getElementById("directory-grid");
+            const loading = document.getElementById("directory-loading");
+            
+            if (loading) loading.remove();
+            
+            if (!data || data.length === 0) {
+                grid.innerHTML = "<p class='col-span-full text-center text-slate-400 text-sm py-6'>No approved professionals found yet.</p>";
+                return;
+            }
+            
+            grid.innerHTML = "";
+            data.forEach(prof => {
+                const card = document.createElement("div");
+                card.className = "bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-lg font-bold text-slate-950">${prof.businessName}</h3>
+                            <span class="text-xs bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded-md border border-slate-200">${prof.services}</span>
+                        </div>
+                        <p class="text-sm text-slate-600 line-clamp-3 mb-4">${prof.description || 'No description provided.'}</p>
+                    </div>
+                    <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between">
+                        <div class="text-xs text-slate-400">👤 ${prof.contactName}</div>
+                        <button onclick="alert('Reviews system coming very soon for ${prof.businessName}!')" class="text-xs font-semibold text-blue-600 hover:text-blue-700 transition">
+                            View Profile & Reviews 🌟
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        };
+
+        // Inyección dinámica limpia y sin variables rotas por strings literales
+        (function() {
+            const script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = "https://script.google.com/macros/s/AKfycbySeZzS5a4YaTx3fWNdzn0BGjoG280PmjXFi3BKbvs5DLzG6yM4RfHgiFKD2qvMThmL/exec?callback=callback&_ts=" + new Date().getTime();
+            document.body.appendChild(script);
+        })();
+    </script>
 
 </body>
 </html>
