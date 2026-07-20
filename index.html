@@ -6,7 +6,7 @@
     <title>Overton Connect - Supporting the Local Community of Overton, Hampshire</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
@@ -89,7 +89,7 @@
                         <p class="text-slate-500">Connecting you with approved independent trades and services in Overton.</p>
                     </div>
                     
-                    <!-- Dynamic Grid Container - Ajustado a una columna centrada con max-w-lg (500px) -->
+                    <!-- Dynamic Grid Container - 500px Centrado -->
                     <div id="directory-grid" class="w-full max-w-[500px] gap-8">
                         <!-- Las tarjetas premium ultra pulidas se renderizan aquí -->
                     </div>
@@ -168,31 +168,28 @@
                     .toUpperCase();
 
                 const card = document.createElement("div");
-                // Ancho fijo a 500px, microanimaciones de escala 1.02 y sombra pesada en hover
                 card.className = "bg-white border border-slate-150 rounded-[24px] overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 group flex flex-col justify-between w-full mx-auto mb-6";
                 
                 card.innerHTML = `
                     <div>
-                        <!-- Encabezado con degradado premium Indigo -> Purple -> Cyan -->
+                        <!-- Encabezado con degradado e insignia de la comunidad en la derecha -->
                         <div class="bg-gradient-to-r ${theme.bg} px-6 py-4 flex items-center justify-between text-white text-[11px] font-bold tracking-wider uppercase">
                             <span class="flex items-center gap-1.5">
                                 <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                                 ✔ Verified Local Professional
                             </span>
-                            <span class="bg-white/20 backdrop-blur-md text-white px-2.5 py-0.5 rounded-full border border-white/10 normal-case">⭐ New Member</span>
+                            <span class="bg-white/20 backdrop-blur-md text-white px-2.5 py-0.5 rounded-full border border-white/10 normal-case">🏡 Community Trusted</span>
                         </div>
 
                         <!-- Cuerpo de la Tarjeta -->
                         <div class="p-6">
-                            <!-- Fila de Perfil Principal con Avatar de más impacto -->
+                            <!-- Fila de Perfil Principal -->
                             <div class="flex items-center gap-4 mb-6">
-                                <!-- Avatar con degradado radial, sombra marcada y borde blanco -->
                                 <div class="w-16 h-16 rounded-full bg-gradient-to-tr ${theme.bg} text-white font-bold text-xl flex items-center justify-center border-4 border-white shadow-md group-hover:rotate-3 transition-transform duration-300 shrink-0">
                                     ${initials}
                                 </div>
                                 <div>
                                     <h3 class="text-2xl font-bold text-slate-900 tracking-tight leading-snug">${prof.businessName}</h3>
-                                    <!-- 3 Micro-checks de confianza añadidos debajo del nombre -->
                                     <div class="mt-1.5 space-y-0.5 text-xs font-medium text-slate-500">
                                         <div class="flex items-center gap-1.5 text-emerald-600">
                                             <span>✔ Identity Verified</span>
@@ -207,34 +204,34 @@
                                 </div>
                             </div>
 
-                            <!-- Sistema de Estrellas estilo Airbnb (Crecido y prioritario) -->
-                            <div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 mb-6 flex items-center justify-between">
+                            <!-- Cuadro de Valoración Estilo Airbnb (Fondo Blanco, Borde Gris y Estrellas un 15% más grandes) -->
+                            <div class="bg-white border border-slate-200 rounded-2xl p-4 mb-6 flex items-center justify-between shadow-sm">
                                 <div class="flex items-center gap-1.5">
-                                    <span class="text-amber-400 text-lg tracking-tighter">★★★★★</span>
-                                    <span class="text-sm font-bold text-slate-800">0.0</span>
+                                    <span class="text-amber-400 text-xl tracking-tighter">★★★★★</span>
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">New Member</span>
                                 </div>
-                                <span class="text-xs text-slate-500 font-medium">Be the first neighbor to recommend them!</span>
+                                <span class="text-xs text-slate-500 font-medium">Be the first to recommend them!</span>
                             </div>
 
-                            <!-- Descripción sin comillas y limpia -->
-                            <p class="text-sm text-slate-600 leading-relaxed font-normal mb-2">
+                            <!-- Descripción sin comillas y con más aire/espacio abajo (mb-6) -->
+                            <p class="text-sm text-slate-600 leading-relaxed font-normal mb-6">
                                 ${prof.description}
                             </p>
                         </div>
                     </div>
 
-                    <!-- Pie de Tarjeta con Insignias Elegantes -->
+                    <!-- Pie de Tarjeta con Etiquetas e Insignia Local Pulida -->
                     <div class="px-6 pb-6 mt-auto">
                         <div class="flex flex-wrap gap-2 items-center justify-between border-t border-slate-100 pt-4 mb-6">
                             <span class="text-xs font-bold px-3 py-1 rounded-full border ${theme.badge} ${theme.text}">
                                 🎓 ${prof.services}
                             </span>
                             <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-0.5 rounded-full">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live Local
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 🟢 Local Business
                             </span>
                         </div>
 
-                        <!-- Botón Principal en Indigo (#4F46E5) -->
+                        <!-- Botón Principal Índigo -->
                         <div class="space-y-3">
                             <button onclick="alert('Profile view coming very soon for ${prof.businessName}!')" 
                                     class="w-full bg-[#4F46E5] text-white font-bold text-sm py-4 px-4 rounded-xl hover:bg-[#4338CA] active:bg-[#3730A3] shadow-md hover:shadow-lg transition-all duration-200 text-center tracking-wide block">
