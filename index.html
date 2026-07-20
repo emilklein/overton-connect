@@ -40,7 +40,7 @@
             </div>
 
             <!-- Main Action Cards / Buttons -->
-            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20">
                 
                 <!-- Card 1: Residents / Need a Service -->
                 <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
@@ -54,7 +54,6 @@
                         </p>
                     </div>
                     <div>
-                        <!-- https://docs.google.com/forms/d/e/1FAIpQLSe6vlsDkCGwvaDvhDkoZHsKJOrY6SIiuWmB8HUbFAl_ifM5kw/viewform?usp=dialog -->
                         <a href="https://docs.google.com/forms/d/e/1FAIpQLSe6vlsDkCGwvaDvhDkoZHsKJOrY6SIiuWmB8HUbFAl_ifM5kw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" 
                            class="w-full inline-flex items-center justify-center bg-blue-600 text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-blue-700 active:bg-blue-800 transition shadow-sm hover:shadow group-hover:translate-x-0.5 transform duration-150">
                             Request a Service &nbsp; ➡️
@@ -74,18 +73,33 @@
                         </p>
                     </div>
                     <div>
-                        <!-- https://docs.google.com/forms/d/e/1FAIpQLSenFBMRWxrhPoNJ0oEj62FlkcG9uqrgZjKGE3jgpxc-IJ_yWw/viewform?usp=dialog -->
                         <a href="https://docs.google.com/forms/d/e/1FAIpQLSenFBMRWxrhPoNJ0oEj62FlkcG9uqrgZjKGE3jgpxc-IJ_yWw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" 
                            class="w-full inline-flex items-center justify-center bg-emerald-600 text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-emerald-700 active:bg-emerald-800 transition shadow-sm hover:shadow group-hover:translate-x-0.5 transform duration-150">
                             Join the Network &nbsp; ➡️
                         </a>
                     </div>
                 </div>
-
             </div>
 
-            <!-- Core Values / How it works banner -->
-            <div class="mt-20 border-t border-slate-200 pt-12">
+            <!-- NEW SECTION: Automated Business Directory -->
+            <div class="border-t border-slate-200 pt-16 mb-20">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 mb-2 text-center sm:text-left">Verified Local Professionals</h2>
+                    <p class="text-slate-500 mb-8 text-center sm:text-left">Connecting you with approved independent trades and services in Overton.</p>
+                    
+                    <!-- Dynamic Grid Container -->
+                    <div id="directory-grid" class="grid sm:grid-cols-2 gap-6">
+                        <!-- Loading State -->
+                        <div id="directory-loading" class="col-span-full text-center py-12 text-slate-400">
+                            <span class="inline-block animate-spin text-2xl mb-2">🔄</span>
+                            <p class="text-sm">Loading local network...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Values Banner -->
+            <div class="border-t border-slate-200 pt-12">
                 <div class="grid sm:grid-cols-3 gap-8 text-center sm:text-left">
                     <div class="space-y-2">
                         <h3 class="font-bold text-slate-900 flex items-center gap-2 justify-center sm:justify-start">
@@ -123,11 +137,50 @@
         </div>
     </footer>
 
+    <!-- Directory Fetch Engine -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // REPLÁZAME COMPLETAMENTE CON TU URL LARGA DE APPS SCRIPT
+            const API_URL = "https://script.google.com/macros/s/AKfycbySeZzS5a4YaTx3fWNdzn0BGjoG280PmjXFi3BKbvs5DLzG6yM4RfHgiFKD2qvMThmL/exec"; 
+            
+            const grid = document.getElementById("directory-grid");
+            const loading = document.getElementById("directory-loading");
+
+            fetch(API_URL)
+                .then(response => response.json())
+                .then(data => {
+                    loading.remove();
+                    if(data.length === 0) {
+                        grid.innerHTML = "<p class='col-span-full text-center text-slate-400 text-sm py-6'>No approved professionals found yet.</p>";
+                        return;
+                    }
+                    
+                    data.forEach(prof => {
+                        const card = document.createElement("div");
+                        card.className = "bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition";
+                        card.innerHTML = `
+                            <div>
+                                <div class="flex items-start justify-between mb-3">
+                                    <h3 class="text-lg font-bold text-slate-950">${prof.businessName}</h3>
+                                    <span class="text-xs bg-slate-100 text-slate-600 font-medium px-2 py-0.5 rounded-md border border-slate-200">${prof.services}</span>
+                                </div>
+                                <p class="text-sm text-slate-600 line-clamp-3 mb-4">${prof.description || 'No description provided.'}</p>
+                            </div>
+                            <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between">
+                                <div class="text-xs text-slate-400">👤 ${prof.contactName}</div>
+                                <button onclick="alert('Reviews system coming very soon for ${prof.businessName}!')" class="text-xs font-semibold text-blue-600 hover:text-blue-700 transition">
+                                    View Profile & Reviews 🌟
+                                </button>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                })
+                .catch(err => {
+                    console.error(err);
+                    loading.innerHTML = "<p class='text-red-500 text-sm'>Failed to load directory data.</p>";
+                });
+        });
+    </script>
 </body>
 </html>
-"""
-
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-print("FILE_GENERATED_SUCCESSFULLY")
