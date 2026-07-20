@@ -1,0 +1,137 @@
+# Let's generate a highly polished, single-file HTML landing page for Overton Connect.
+# It will use Tailwind CSS via CDN, look modern and professional, feature the two cards/buttons,
+# and have placeholders for the Google Forms URLs.
+
+html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overton Connect - Supporting the Local Community of Overton, Hampshire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🚀</span>
+                <span class="text-xl font-bold tracking-tight text-slate-900">Overton<span class="text-blue-600">Connect</span></span>
+            </div>
+            <div class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
+                📍 Overton, Hampshire
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="flex-grow flex items-center py-12 md:py-20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-950 mb-6 leading-tight">
+                    Bringing our village community closer together
+                </h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    Welcome to <strong class="text-slate-900 font-semibold">Overton Connect</strong>. A community-driven initiative built to support local businesses, connect independent traders, and help residents get things done safely and easily right here in Overton.
+                </p>
+            </div>
+
+            <!-- Main Action Cards / Buttons -->
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                
+                <!-- Card 1: Residents / Need a Service -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors">
+                            <span class="text-2xl text-blue-600">👤</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-3">Need a Local Service?</h2>
+                        <p class="text-slate-600 leading-relaxed mb-6">
+                            Looking for a trusted plumber, electrician, gardener, or need assistance with local errands or home maintenance? Post your request here to find a reliable professional living and working within our community.
+                        </p>
+                    </div>
+                    <div>
+                        <!-- https://docs.google.com/forms/d/e/1FAIpQLSe6vlsDkCGwvaDvhDkoZHsKJOrY6SIiuWmB8HUbFAl_ifM5kw/viewform?usp=dialog -->
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSe6vlsDkCGwvaDvhDkoZHsKJOrY6SIiuWmB8HUbFAl_ifM5kw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" 
+                           class="w-full inline-flex items-center justify-center bg-blue-600 text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-blue-700 active:bg-blue-800 transition shadow-sm hover:shadow group-hover:translate-x-0.5 transform duration-150">
+                            Request a Service &nbsp; ➡️
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Businesses / Offer Services -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-6 group-hover:bg-emerald-100 transition-colors">
+                            <span class="text-2xl text-emerald-600">💼</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-3">Offer Your Services</h2>
+                        <p class="text-slate-600 leading-relaxed mb-6">
+                            Are you an independent trader, local delivery driver, hospitality venue, or business owner based in or around Overton? Join our growing digital business network today to receive direct service inquiries and match with local clients.
+                        </p>
+                    </div>
+                    <div>
+                        <!-- https://docs.google.com/forms/d/e/1FAIpQLSenFBMRWxrhPoNJ0oEj62FlkcG9uqrgZjKGE3jgpxc-IJ_yWw/viewform?usp=dialog -->
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSenFBMRWxrhPoNJ0oEj62FlkcG9uqrgZjKGE3jgpxc-IJ_yWw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" 
+                           class="w-full inline-flex items-center justify-center bg-emerald-600 text-white font-semibold px-6 py-3.5 rounded-xl hover:bg-emerald-700 active:bg-emerald-800 transition shadow-sm hover:shadow group-hover:translate-x-0.5 transform duration-150">
+                            Join the Network &nbsp; ➡️
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Core Values / How it works banner -->
+            <div class="mt-20 border-t border-slate-200 pt-12">
+                <div class="grid sm:grid-cols-3 gap-8 text-center sm:text-left">
+                    <div class="space-y-2">
+                        <h3 class="font-bold text-slate-900 flex items-center gap-2 justify-center sm:justify-start">
+                            <span class="text-lg">🏡</span> 1. Keep it Local
+                        </h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            Every request, transaction, and project stays entirely within the Overton village and Hampshire economy.
+                        </p>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-bold text-slate-900 flex items-center gap-2 justify-center sm:justify-start">
+                            <span class="text-lg">⚡</span> 2. Automated Alerts
+                        </h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            Our instant notifications match client jobs with available service providers seamlessly behind the scenes.
+                        </p>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-bold text-slate-900 flex items-center gap-2 justify-center sm:justify-start">
+                            <span class="text-lg">🤝</span> 3. Zero Commissions
+                        </h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            No service fees or platforms cutting into your earnings. Direct agreement between neighbors and traders.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-500">
+            <p>&copy; 2026 Overton Connect. Built proudly for the community of Overton, Hampshire.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("FILE_GENERATED_SUCCESSFULLY")
