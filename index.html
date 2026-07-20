@@ -179,8 +179,10 @@
         (function() {
             const script = document.createElement("script");
             script.type = "text/javascript";
-            // Aseguramos el parámetro limpio para empatar el puente de Apps Script
-            script.src = "https://script.google.com/macros/s/AKfycbySeZzS5a4YaTx3fWNdzn0BGjoG280PmjXFi3BKbvs5DLzG6yM4RfHgiFKD2qvMThmL/exec?callback=callback&_ts=" + new Date().getTime();
+            
+            // Creamos la URL limpia uniendo el timestamp de forma segura
+            const baseUrl = "https://script.google.com/macros/s/AKfycbySeZzS5a4YaTx3fWNdzn0BGjoG280PmjXFi3BKbvs5DLzG6yM4RfHgiFKD2qvMThmL/exec";
+            script.src = baseUrl + "?callback=callback&_ts=" + new Date().getTime();
             
             script.onerror = function() {
                 const loading = document.getElementById("directory-loading");
